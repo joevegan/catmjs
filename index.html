@@ -6,6 +6,10 @@
         <script src="jsqrcode-combined.min.js"></script>
         <script src="html5-qrcode.js"></script>
         <script>
+            $(function() {
+                mainScreen();
+                //setInterval(checkBalance,1000);
+            });
 
             /* configuration
              * @TODO: move this into config file, review server settings
@@ -69,16 +73,10 @@
                 $( "#selectCoin" ).show();
                 $( "#getQR" ).hide();
                 $( "#gotQR" ).hide();
-                $( "#complete" ).hide();
+                $( "#completed" ).hide();
                 $( "#allsettings" ).hide();
                 $("#currentBalance").html(accounting.formatMoney(currentBalance));
             }
-
-            $(function() {
-                reset();
-                $( "#completed" ).hide();
-                //setInterval(checkBalance,1000);
-            });
 
             function checkBalance() {
                 if (curAmount > 0) {
