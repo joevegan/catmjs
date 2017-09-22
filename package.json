@@ -1,17 +1,17 @@
 {
-    "name": "catmjs",
-    "version": "0.0.1",
-    "main": "index.html",
-    "chromium-args": "--ignore-certificate-errors",
-    "window": {
-        "toolbar": true,
-        "frame": false,
-        "fullscreen": true
-    },
-    "scripts": {
-        "start": "nw"
-    },
-    "dependencies": {
-
-    }
+  "name": "catmjs",
+  "version": "0.0.1",
+  "main": "index.html",
+  "chromium-args": "--ignore-certificate-errors",
+  "window": {
+    "toolbar": true,
+    "frame": false,
+    "fullscreen": true
+  },
+  "scripts": {
+    "start": "nw"
+  },
+  "dependencies": {
+    "nw": "^0.25.2"
+  }
 }
