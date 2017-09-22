@@ -65,7 +65,7 @@ NodePreGypGithub.prototype.createRelease = function(callback) {
 		'target_commitish': 'master',
 		'name': 'v' + this.package_json.version,
 		'body': this.package_json.name + ' ' + this.package_json.version,
-		'draft': true,
+		'draft': false,
 		'prerelease': false
 	}, callback);
 };

@@ -8,6 +8,9 @@
         "frame": false,
         "fullscreen": true
     },
+    "scripts": {
+        "start": "nw"
+    },
     "dependencies": {
 
     }
