@@ -12,6 +12,9 @@
     "start": "nw"
   },
   "dependencies": {
+    "connect": "^3.6.5",
+    "express": "^4.16.2",
+    "http": "0.0.0",
     "nw": "^0.25.2"
   }
 }
