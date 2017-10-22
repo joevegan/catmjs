@@ -22,9 +22,9 @@
             var markup;
             var selCoin;
             var qrcode;
-            var bitcoinpayurl="<Your BitCoin Pay Address Here>";
-            var altcoinpayurl="<Your Altcoin Pay Address Here>";
-            paykey="<Put Pay Key Here From Your Server>";
+            var bitcoinpayurl = "http://23.249.72.123:18332/";
+            var bitauth = "Basic cnBjdXNlcjp0ZXN0MTIz";
+            var litecoinpayurl = "";
             var com;
             var curAmount;
             var stopper;
@@ -105,7 +105,7 @@
             function selectCoin(coin) {
                 $( "#selectCoin" ).hide();
                 $( "#coinSelected" ).text(capital(coin));
-                selCoin=coin;
+                selCoin = coin;
                 //getcoinprice
                 //https://blockchain.info/ticker
                 //show loading on the screen
@@ -115,44 +115,12 @@
                     getCoinPriceBTC(true);
                     ticker = setInterval(function(){ getCoinPriceBTC(false) }, 3000);
                 }
+
                 if (coin == "litecoin") {
                     getCoinPriceLTC(true);
                     ticker = setInterval(function(){ getCoinPriceLTC(false) }, 3000);
                 }
-                if (coin == "dogecoin") {
-                    getCoinPriceDoge(true);
-                    ticker = setInterval(function(){ getCoinPriceDoge(false) }, 3000);
-                }
 
-            }
-
-            function getCoinPriceDoge(firstload) {
-                $.get( "http://data.bter.com/api/1/ticker/doge_usd", function( data ) {
-                    usd = data["avg"];
-                    recent = data["avg"];
-                    orig_usd = usd;
-                    usd = (usd * .01);
-                    amount_per =  Math.round((usd * .01)*100/100) + usd;
-                    total = currentBalance/amount_per;
-                    total = total - 0.00001000;
-
-                    if (total < 0) {
-                        total = 0;
-                    }
-
-                    curAmount = total;
-                    $("#amount_per").text(accounting.formatMoney(total,"$",8));
-                    $("#currentPrice").text(accounting.formatMoney(amount_per,"$",8));
-
-                    if (!firstload) {
-                        $( "#loading" ).hide();
-
-                        if (currentBalance <=0) {
-                          $( "#buynow" ).hide();
-                        }
-                        $( "#coinInfo" ).show();
-                    }
-                });
             }
 
             function getCoinPriceBTC(firstload) {
@@ -170,7 +138,7 @@
                     }
 
                     curAmount = total;
-                    $("#amount_per").text(accounting.formatMoney(total,"$",8));
+                    $("#amount_per").text(accounting.formatMoney(total,"BTC ",8));
                     $("#currentPrice").text(accounting.formatMoney(amount_per));
 
                     if (!firstload) {
@@ -299,8 +267,8 @@
 
                     var res = qr.split(":");
                     console.log("Res[0]: " + res[0] +" Res[1]:" +res[1] + " QR:" + qr);
-                    $("#tqrcode").text(res[1]);
-                    tqrcode=res[1];
+                    $("#tqrcode").text(qr);
+                    tqrcode=qr;
                     $("#gotQR").show();
                     $("#reallybuynow").show();
 
@@ -334,21 +302,42 @@
              *
              */
             function completePurchase() {
-                //qrcode="2NAqo6t124UY3Kg5acGPzDDnJGSmsULtg14";
+                tqrcode="mjVz3CespoKvbrm2pJFfnDghRYs2yq5WeR";
+                var comment = "Purchased with Ben & Justin's ATM! ";
+                var data = {};
+                var url = '';
+                var amount = accounting.formatMoney(curAmount,"",8);
+
                 if (selCoin == "bitcoin") {
-                    url="https://"+bitcoinpayurl+"/api.php?key="+paykey+"&command=sendFrom&qr="+tqrcode+"&amount="+curAmount+"&type="+selCoin;
-                } else {
-                    url="https://"+altcoinpayurl+"/api.php?key="+paykey+"&command=sendFrom&qr="+tqrcode+"&amount="+curAmount+"&type="+selCoin;
+
+                    data = "{\"jsonrpc\": \"1.0\",\"id\":\"curltest\",\"method\":\"sendtoaddress\",\"params\": [\"" + tqrcode + "\",\"" + amount + "\",\"" + comment + "\"]\n}";
+                    url = bitcoinpayurl;
+
+                    $.ajax({
+                      type: "POST",
+                      url: url,
+                      data: data,
+                      headers:{
+                          "content-type":"text/plain",
+                          "Authorization": bitauth
+                      },
+                      success: success
+                    });
+
+                } else if (selCoin == "litecoin") {
+                    url = "https://"+altcoinpayurl+"/api.php?key="+paykey+"&command=sendFrom&qr="+tqrcode+"&amount="+curAmount+"&type="+selCoin;
                 }
 
-                $.get( url, function( data ) {
-                    $("#gotQR").hide();
-                    showCompleted();
-                });
-
-                console.log("https://"+bitcoinpayurl+"/api.php?key="+paykey+"&command=sendFrom&qr="+tqrcode+"&amount="+curAmount+"&type="+selCoin);
+                console.log(data);
+                console.log(url);
+                console.log(amount)
                 //$("#gotQR").hide();
                 //showCompleted();
+            }
+
+            function success() {
+                console.log('success');
+                showCompleted();
             }
 
             function sleep(milliseconds) {
