@@ -16,7 +16,7 @@
              *
              */
 
-            currentBalance = 50;
+            currentBalance = 5;
             var ticker;
             var recent;
             var markup;
@@ -303,7 +303,7 @@
              *
              */
             function completePurchase() {
-                tqrcode="mjVz3CespoKvbrm2pJFfnDghRYs2yq5WeR";
+                //tqrcode="mjVz3CespoKvbrm2pJFfnDghRYs2yq5WeR";
                 var comment = "Purchased with Ben & Justin's ATM! ";
                 var data = {};
                 var url = '';
@@ -339,6 +339,7 @@
             function success() {
                 console.log('success');
                 showCompleted();
+                $('#reallybuynow').hide();
             }
 
             function sleep(milliseconds) {
