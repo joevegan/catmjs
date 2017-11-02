@@ -21,8 +21,6 @@ port.on("open", function () {
     port.on('data', function(data) {
         currentBalance = parseInt(currentBalance) + parseInt(data);
         console.log(currentBalance);
-        //$("#currentBalance").html(accounting.formatMoney(currentBalance));
-        //balanceUP();
     });
     port.on('error', function(err) {
         console.log('Error: ', err.message);

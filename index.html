@@ -11,49 +11,22 @@
                 setInterval(checkBalance,1000);
             });
 
-            /* configuration
-             * @TODO: move this into config file, review server settings
-             *
-             */
+            /* @TODO: move this into config file, review server settings */
             var currentBalance = 0;
             var ticker;
             var recent;
             var markup;
             var selCoin;
             var qrcode;
-            //var bitcoinpayurl = "http://23.249.72.123:18332/";
             var bitcoinpayurl = '/bitcoin';
             var litecoinpayurl = '/litecoin';
             var balanceurl = '/balance';
             var bitauth = "Basic cnBjdXNlcjp0ZXN0MTIz";
-
-
+            //////////
             var com;
             var curAmount;
             var stopper;
 
-/*
-            // serial port reader -- may need to adjust
-            var serialport = require('serialport');
-            var SerialPort = serialport.SerialPort;
-
-            var sp = new SerialPort("/dev/ttyACM0", {
-                baudrate: 9600,
-                parser: serialport.parsers.readline('\r\n')
-            });
-
-            // On open to bill accepter
-            sp.on("open", function () {
-
-                console.log('open');
-
-                sp.on('data', function(data) {
-                    currentBalance = parseInt(currentBalance) + parseInt(data);
-                    $("#currentBalance").html(accounting.formatMoney(currentBalance));
-                    balanceUP();
-                });
-            });
-*/
             function reset() {
                 currentBalance = 0;
                 mainScreen();
