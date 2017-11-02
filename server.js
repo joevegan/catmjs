@@ -5,7 +5,7 @@ var express = require('express'),
   httpServer = http.Server(app);
 var bitcoinpayurl = "http://23.249.72.123:18332/";
 var litecoinpayurl = "http://23.249.72.123:19332/";
-var currentBalance = 0;
+var currentBalance = 5;
 
 var SerialPort = require('serialport');
 var port = new SerialPort('/dev/ttyACM0', {
@@ -24,42 +24,21 @@ port.on("open", function () {
         //$("#currentBalance").html(accounting.formatMoney(currentBalance));
         //balanceUP();
     });
-});
-
-
-/*
-// serial port reader -- may need to adjust
-var serialport = require('serialport');
-var SerialPort = serialport.SerialPort;
-
-var sp = new SerialPort("/dev/ttyACM0", {
-    baudrate: 9600,
-    parser: serialport.parsers.readline('\r\n')
-});
-
-// On open to bill accepter
-sp.on("open", function () {
-
-    console.log('open');
-
-    sp.on('data', function(data) {
-        currentBalance = parseInt(currentBalance) + parseInt(data);
-        console.log(currentBalance);
-        //$("#currentBalance").html(accounting.formatMoney(currentBalance));
-        //balanceUP();
+    port.on('error', function(err) {
+        console.log('Error: ', err.message);
     });
 });
-*/
-
 
 app.use(express.static(__dirname));
 app.use('/bitcoin', proxy(bitcoinpayurl));
 app.use('/litecoin', proxy(litecoinpayurl));
-
-
+app.get('/balance', function(req, res){
+    res.json(currentBalance,null,200)
+});
 app.get('/', function(req, res) {
   res.sendfile(__dirname + '/index.html');
   console.log('connection');
 });
+
 console.log('serving app on port 3000');
 app.listen(3000);

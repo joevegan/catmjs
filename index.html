@@ -8,15 +8,14 @@
         <script>
             $(function() {
                 mainScreen();
-                //setInterval(checkBalance,1000);
+                setInterval(checkBalance,1000);
             });
 
             /* configuration
              * @TODO: move this into config file, review server settings
              *
              */
-
-            currentBalance = 5;
+            var currentBalance = 0;
             var ticker;
             var recent;
             var markup;
@@ -25,7 +24,10 @@
             //var bitcoinpayurl = "http://23.249.72.123:18332/";
             var bitcoinpayurl = '/bitcoin';
             var litecoinpayurl = '/litecoin';
+            var balanceurl = '/balance';
             var bitauth = "Basic cnBjdXNlcjp0ZXN0MTIz";
+
+
             var com;
             var curAmount;
             var stopper;
@@ -81,6 +83,17 @@
             }
 
             function checkBalance() {
+                $.ajax({
+                  type: "GET",
+                  url: balanceurl,
+                  data: null,
+                  success: function(data) {
+                      currentBalance = data;
+                  }
+                });
+                $("#currentBalance").html(accounting.formatMoney(currentBalance));
+                console.log('bal:' + currentBalance);
+
                 if (curAmount > 0) {
                     $( "#right").hide();
                 } else {
@@ -289,7 +302,7 @@
                 $("#completed").hide();
                 //$("#container").show();
                 clearInterval(com);
-                //reset();
+                reset();
                 location.reload();
             }
 
@@ -344,15 +357,11 @@
 
                 }
 
-                console.log(data);
-                console.log(url);
-                console.log(amount)
-                //$("#gotQR").hide();
-                //showCompleted();
+                $("#gotQR").hide();
+                showCompleted();
             }
 
             function success() {
-                console.log('success');
                 showCompleted();
                 $('#reallybuynow').hide();
             }
