@@ -24,8 +24,8 @@
             var qrcode;
             //var bitcoinpayurl = "http://23.249.72.123:18332/";
             var bitcoinpayurl = '/bitcoin';
+            var litecoinpayurl = '/litecoin';
             var bitauth = "Basic cnBjdXNlcjp0ZXN0MTIz";
-            var litecoinpayurl = "";
             var com;
             var curAmount;
             var stopper;
@@ -326,7 +326,21 @@
                     });
 
                 } else if (selCoin == "litecoin") {
-                    url = "https://"+altcoinpayurl+"/api.php?key="+paykey+"&command=sendFrom&qr="+tqrcode+"&amount="+curAmount+"&type="+selCoin;
+
+                    data = "{\"jsonrpc\": \"1.0\",\"id\":\"curltest\",\"method\":\"sendtoaddress\",\"params\": [\"" + tqrcode + "\",\"" + amount + "\",\"" + comment + "\"]\n}";
+                    url = litecoinpayurl;
+
+                    $.ajax({
+                      type: "POST",
+                      url: url,
+                      data: data,
+                      headers:{
+                          "content-type":"text/plain",
+                          "Authorization": bitauth
+                      },
+                      success: success
+                    });
+
                 }
 
                 console.log(data);
