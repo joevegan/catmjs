@@ -16,6 +16,7 @@
     "express": "^4.16.2",
     "express-http-proxy": "^1.0.7",
     "http": "0.0.0",
-    "nw": "^0.25.2"
+    "nw": "^0.25.2",
+    "serialport": "^6.0.4"
   }
 }
