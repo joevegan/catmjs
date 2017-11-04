@@ -15,16 +15,15 @@ var port = new SerialPort('/dev/ttyAMA0', {
 
 // On open to bill accepter
 port.on("open", function () {
-
     console.log('open');
+});
 
-    port.on('data', function(data) {
-        currentBalance = parseInt(currentBalance) + parseInt(data);
-        console.log(currentBalance);
-    });
-    port.on('error', function(err) {
-        console.log('Error: ', err.message);
-    });
+port.on('data', function(data) {
+    currentBalance = parseInt(currentBalance) + parseInt(data);
+    console.log(data);
+});
+port.on('error', function(err) {
+    console.log('Error: ', err.message);
 });
 
 app.use(express.static(__dirname));
