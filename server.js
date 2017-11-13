@@ -28,22 +28,9 @@ port.on('data', function(data) {
 // On open to bill accepter
 /*
 port.on("open", function () {
-
     console.log('open');
-
-    port.on('data', function(data) {
-        console.log('Data: ' + data);
-        /*
-        currentBalance = parseInt(currentBalance) + parseInt(data);
-        console.log(currentBalance);
-        */
-        /*
-    });
-    port.on('error', function(err) {
-        console.log('Error: ', err.message);
-    });
 });
-*/
+
 
 app.use(express.static(__dirname));
 app.use('/bitcoin', proxy(bitcoinpayurl));
