@@ -13,25 +13,22 @@ var port = new SerialPort('/dev/ttyAMA0', function(err) {
         return console.log('Error: ' + err.message);
     }
     baudRate: 9600
-    console.log('open');
-    port.write(Buffer.from('im a loopback test!'));
+
+    console.log('seriel port open');
+
 
 });
 
-port.on('data', function(data) {
-    console.log('Data: ' + data);
-    /*
-    currentBalance = parseInt(currentBalance) + parseInt(data);
-    console.log(currentBalance);
-    */
-});
+port.write('im a loopback test!', function(err) {
+    return console.log('Error on write: ' + err.message);
+}
+    console.log('message written');
+);
 
-// On open to bill accepter
-/*
-port.on("open", function () {
-    console.log('open');
+
+port.on('readable', function () {
+  console.log('Data:', port.read());
 });
-*/
 
 
 app.use(express.static(__dirname));
