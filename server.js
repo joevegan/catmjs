@@ -8,7 +8,7 @@ var litecoinpayurl = "http://23.249.72.123:19332/";
 var currentBalance = 5;
 
 var SerialPort = require('serialport');
-var port = new SerialPort('/dev/ttyAMA0', function(err) {
+var port = new SerialPort('/dev/ttyS0', function(err) {
     if (err) {
         return console.log('Error: ' + err.message);
     }
