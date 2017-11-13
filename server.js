@@ -19,11 +19,12 @@ var port = new SerialPort('/dev/ttyAMA0', function(err) {
 
 });
 
-port.write('im a loopback test!', function(err) {
-    return console.log('Error on write: ' + err.message);
-}
+port.write('loopback test', function(err) {
+    if (err) {
+        return console.log('Error on write: ', err.message);
+    }
     console.log('message written');
-);
+});
 
 
 port.on('readable', function () {
