@@ -14,8 +14,9 @@ var port = new SerialPort('/dev/ttyAMA0', function(err) {
     }
     baudRate: 9600
     console.log('open');
+    port.write(Buffer.from('im a loopback test!'));
+
 });
-port.write('im a loopback test!');
 
 port.on('data', function(data) {
     console.log('Data: ' + data);
