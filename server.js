@@ -30,6 +30,7 @@ port.on('data', function(data) {
 port.on("open", function () {
     console.log('open');
 });
+*/
 
 
 app.use(express.static(__dirname));
