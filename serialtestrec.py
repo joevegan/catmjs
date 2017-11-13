@@ -5,7 +5,7 @@ import serial
 
 
 ser = serial.Serial(
-    port='/dev/ttyUSB0',
+    port='/dev/ttyAMA0',
     baudrate = 9600,
     parity=serial.PARITY_NONE,
     stopbits=serial.STOPBITS_ONE,
