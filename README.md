@@ -3,9 +3,12 @@ Open source Crypto ATM. Currently supports BTC, LTC, more coming soon. Currently
 
 
 # Run
-1. Clone Repo to your pi
-2. node server.js
-3. chromium-browser --kisok http://localhost:3000
+1. Clone Repo
+2. npm install
+3. node server.js
+4. chromium-browser --kisok http://localhost:3000
+
+You can run it on any computer the pi is just really cheap!
 
 # Hardware
 - Raspberry Pi 3 ($35)
