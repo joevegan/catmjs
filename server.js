@@ -19,22 +19,35 @@ var port = new SerialPort('/dev/ttyS0', function(err) {
 
 });
 
-port.write('loopback test', function(err) {
+
+/* // Doc for cash acceptor
+SYNC     LNG    CMD     DATA    CRC
+FC       4      11              0               -- enable polling, open the cash despenser
+*/
+
+
+
+// put cash accepter in accept mode
+var
+port.write(Buffer.From('FC4110','hex'), function(err) {
     if (err) {
         return console.log('Error on write: ', err.message);
     }
-    console.log('message written');
+    console.log('Requested cash accepter to switch to accept mode');
+
 });
 
+
+/* // flowiing mode
 port.on('data', function (data) {
   console.log('Data:', data);
 });
+*/
 
-/*
 port.on('readable', function () {
   console.log('Data:', port.read());
 });
-*/
+
 
 app.use(express.static(__dirname));
 app.use('/bitcoin', proxy(bitcoinpayurl));
