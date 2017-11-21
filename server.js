@@ -37,15 +37,16 @@ port.write('FC041100','hex', function(err) {
 });
 
 
-/* // flowiing mode
+// flowiing mode
 port.on('data', function (data) {
   console.log('Data:', data);
 });
-*/
 
+/*
 port.on('readable', function () {
   console.log('Data:', port.read());
 });
+*/
 
 
 app.use(express.static(__dirname));
