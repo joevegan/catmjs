@@ -26,11 +26,15 @@ port.write('loopback test', function(err) {
     console.log('message written');
 });
 
+port.on('data', function (data) {
+  console.log('Data:', data);
+});
 
+/*
 port.on('readable', function () {
   console.log('Data:', port.read());
 });
-
+*/
 
 app.use(express.static(__dirname));
 app.use('/bitcoin', proxy(bitcoinpayurl));
