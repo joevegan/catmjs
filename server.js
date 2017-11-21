@@ -28,7 +28,7 @@ FC       4      11              0               -- enable polling, open the cash
 
 
 // put cash accepter in accept mode
-port.write('FC041100','hex', function(err) {
+port.write('FC05112756','hex', function(err) {
     if (err) {
         return console.log('Error on write: ', err.message);
     }
